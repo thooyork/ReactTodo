@@ -1,7 +1,7 @@
 {
-  "name": "reacttime",
+  "name": "reactboilerplate",
   "version": "1.0.0",
-  "description": "React Time Application Test",
+  "description": "React Boilerplate",
   "main": "index.js",
   "scripts": {
     "test": "karma start",
