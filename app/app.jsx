@@ -13,6 +13,6 @@ $(document).foundation();
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-<p>React BoilerPlate</p>,
+<p>React ToDo AppPlaceholder</p>,
   document.getElementById('app')
 );
