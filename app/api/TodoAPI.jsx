@@ -39,7 +39,7 @@ module.exports = {
       //SORT todos with none-completed first
       filteredTodos.sort((a, b) => {
         //a before b
-        if (!a.completed === false && b.completed === true){
+        if (a.completed === false && b.completed === true){
           return -1;
         }
         //b before a
