@@ -20,4 +20,12 @@ describe('TodoList',()=>{
 
     expect(todosComponents.length).toBe(todos.length);
   });
+
+  it('Should render empty MEssage if no todos',()=>{
+    var todos = [];
+    var todolist = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
+    var todosComponents = TestUtils.scryRenderedComponentsWithType(todolist, Todo);
+
+    expect(todosComponents.length).toBe(todos.length);
+  });
 });

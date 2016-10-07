@@ -14,10 +14,10 @@ var TodoAdd = React.createClass({
   },
   render:function(){
     return(
-      <div>
+      <div className="container__footer">
         <form onSubmit={this.handleSubmit}>
           <input type="text" ref="newtodo" placeholder="What needs to be done ?"/>
-          <input type="submit" value="Add Todo" className="button expanded primary hollow"/>
+          <input type="submit" value="Add Todo" className="button expanded success"/>
         </form>
       </div>
     );

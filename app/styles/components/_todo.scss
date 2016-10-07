@@ -1,0 +1,41 @@
+.todo{
+  background-color:$light-grey;
+  cursor:pointer;
+  display:flex;
+  margin:0;
+  padding:.5rem 0 .5rem 1rem;
+  border-bottom:1px solid $light-grey-border;
+  transition:background .6s ease;
+  p,input{
+    margin:0;
+  }
+
+  > :first-child{
+    margin-right:1rem;
+  }
+
+  &:hover{
+    background:#F0F0F0;
+  }
+}
+
+.todo:last-child{
+  border-bottom:0px!important;
+}
+
+.todo p{
+
+}
+
+
+.todo-completed{
+  p{
+    color:#999;
+    text-decoration: line-through;
+  }
+}
+
+.todo__subtext{
+  color:#999;
+  font-size:.75rem;
+}
