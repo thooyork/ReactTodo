@@ -18,14 +18,16 @@ describe('TodoApp',()=>{
     todoApp.handleAddTodo(itemText);
 
     expect(todoApp.state.todos[0].text).toBe(itemText);
-
+    expect(todoApp.state.todos[0].timestamp).toBeA('number');
   });
 
   it('should toggle copleted value when handleToggle called',()=>{
     var todoData = {
       id:11,
       text:'Test features',
-      completed:false
+      completed:false,
+      timestamp:0,
+      timestampCompleted:undefined
     };
     var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
     todoApp.setState({todos:[todoData]});
@@ -33,5 +35,25 @@ describe('TodoApp',()=>{
     expect(todoApp.state.todos[0].completed).toBe(false);
     todoApp.handleToggle(11);
     expect(todoApp.state.todos[0].completed).toBe(true);
+    expect(todoApp.state.todos[0].timestampCompleted).toBeA('number');
   });
+
+
+  it('should remove timestampCompleted when toggled from true to false',()=>{
+    var todoData = {
+      id:11,
+      text:'Test features',
+      completed:true,
+      timestamp:0,
+      timestampCompleted:14124578
+    };
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
+    todoApp.setState({todos:[todoData]});
+
+    expect(todoApp.state.todos[0].completed).toBe(true);
+    todoApp.handleToggle(11);
+    expect(todoApp.state.todos[0].completed).toBe(false);
+    expect(todoApp.state.todos[0].timestampCompleted).toBe(undefined);
+  });
+
 });
