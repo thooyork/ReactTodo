@@ -1,6 +1,8 @@
 var expect = require('expect');
 var reducers = require('reducers');
 var df = require('deep-freeze-strict');
+var uuid = require('node-uuid');
+var moment = require('moment');
 
 describe('Reducers',()=>{
   describe('searchTextReducer',()=>{
@@ -25,6 +27,41 @@ describe('Reducers',()=>{
       var res = reducers.showCompletedReducer(df(false), df(action));
 
       expect(res).toEqual(true);
+    });
+  });
+
+  describe('todosReducer', () => {
+    it('Should add new Todo',()=>{
+      var action = {
+        type:'ADD_TODO',
+        text:'New Todo'
+      }
+      var res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toEqual(1);
+      expect(res[0].text).toEqual(action.text);
+
+    });
+
+    it('Should toggle Todo',()=>{
+      var todos = [{
+         id:2,
+         text:'some text',
+         completed:false,
+         timestamp:moment().unix(),
+         timestampCompleted:undefined
+       }];
+
+      var action = {
+        type:'TOGGLE_TODO',
+        id:2
+      }
+
+      var res = reducers.todosReducer(df(todos),df(action));
+
+      expect(res[0].completed).toEqual(true);
+      expect(res[0].timestampCompleted).toExist();
+
     });
   });
 
