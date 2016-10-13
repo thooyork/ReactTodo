@@ -4,7 +4,7 @@ var actions = require('actions');
 describe('Actions',()=>{
   it('Should generate searchtext action',()=>{
     var action = {
-      type:'SET_SEARCHTEXT',
+      type:'SET_SEARCH_TEXT',
       searchtext: 'Some search text'
     };
 

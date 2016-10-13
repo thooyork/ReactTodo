@@ -1,11 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var {Provider} = require('react-redux');
 var expect = require('expect');
 var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
-var TodoList = require('TodoList');
-var Todo = require('Todo');
+import {configure} from 'configureStore';
+import ConnectedTodoList, {TodoList} from 'TodoList'
+import ConnectedTodo, {Todo} from 'Todo'
 
 
 describe('TodoList',()=>{
@@ -14,18 +16,40 @@ describe('TodoList',()=>{
   });
 
   it('Should render one Todo Compoment for each Todo Item',()=>{
-    var todos = [{id:1,text:'do something'},{id:2,text:'some data'}];
-    var todolist = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
-    var todosComponents = TestUtils.scryRenderedComponentsWithType(todolist, Todo);
+    var todos = [{
+      id:1,
+      text:'do something',
+      completed:false,
+      timestampCompleted:undefined,
+      timestamp:500
+    },{
+      id:2,
+      text:'some data',
+      completed:false,
+      timestampCompleted:undefined,
+      timestamp:500
+    }];
+
+    var store = configure({
+      todos:todos
+    });
+
+    var provider = TestUtils.renderIntoDocument(
+      <Provider store={store}>
+        <ConnectedTodoList/>
+      </Provider>
+    );
+    var todoList = TestUtils.scryRenderedComponentsWithType(provider, ConnectedTodoList)[0];
+    var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, ConnectedTodo);
 
     expect(todosComponents.length).toBe(todos.length);
   });
 
-  it('Should render empty MEssage if no todos',()=>{
+  it('Should render empty Message if no todos',()=>{
     var todos = [];
-    var todolist = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
-    var todosComponents = TestUtils.scryRenderedComponentsWithType(todolist, Todo);
+    var todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
+    var $el = $(ReactDOM.findDOMNode(todoList));
 
-    expect(todosComponents.length).toBe(todos.length);
+    expect($el.find('.notodos').length).toBe(1);
   });
 });
